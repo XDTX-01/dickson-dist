@@ -1,0 +1,22 @@
+name: Deploy Pages from dist
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+      - name: 上传dist目录给Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+      - name: 部署Pages
+        uses: actions/deploy-pages@v4
